@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GarysCustomGarage
 {
@@ -7,42 +8,55 @@ namespace GarysCustomGarage
         static void Main(string[] args)
         {
             Zero fxs = new Zero();
+            Zero fx = new Zero();
             Tesla modelS = new Tesla();
-            Cessna mx410 = new Cessna();
-            Ram baseModel = new Ram();
 
-            fxs.BatteryKWh = 20;
-            fxs.MainColor = "Green";
-            fxs.MaximumOccupancy = 5;
+            List<IElectric> electricVehicles = new List<IElectric>() {
+                fx, fxs, modelS
+            };
 
-            modelS.BatteryKWh = 25;
-            modelS.MainColor = "White";
-            modelS.MaximumOccupancy = 5;
+            Console.WriteLine("Electric Vehicles");
+            foreach (IElectric ev in electricVehicles)
+            {
+                Console.WriteLine($"{ev.CurrentChargePercentage}");
+            }
 
-            mx410.FuelCapacity = 50;
-            mx410.MainColor = "White";
-            mx410.MaximumOccupancy = 4;
+            foreach (IElectric ev in electricVehicles)
+            {
+                // This should charge the vehicle to 100%
+                ev.ChargeBattery();
+            }
 
-            baseModel.FuelCapacity = 40;
-            baseModel.MainColor = "Red";
-            baseModel.MaximumOccupancy = 5;
+            foreach (IElectric ev in electricVehicles)
+            {
+                Console.WriteLine($"{ev.CurrentChargePercentage}");
+            }
 
+            /***********************************************/
 
+            Ram ram = new Ram();
+            Cessna cessna150 = new Cessna();
 
-            fxs.Drive();
-            modelS.Drive();
-            mx410.Drive();
-            baseModel.Drive();
+            List<IGas> gasVehicles = new List<IGas>() {
+                ram, cessna150
+            };
 
-            fxs.Turn("south");
-            modelS.Turn("north");
-            mx410.Turn("southeast");
-            baseModel.Turn("west");
+            Console.WriteLine("Gas Vehicles");
+            foreach (IGas gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}");
+            }
 
-            fxs.Stop();
-            modelS.Stop();
-            mx410.Stop();
-            baseModel.Stop();
+            foreach (IGas gv in gasVehicles)
+            {
+                // This should completely refuel the gas tank
+                gv.RefuelTank();
+            }
+
+            foreach (IGas gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}");
+            }
         }
     }
 }
