@@ -8,8 +8,11 @@ namespace GarysCustomGarage
         static void Main(string[] args)
         {
             Zero fxs = new Zero();
+            fxs.BatteryKWh = 20;
             Zero fx = new Zero();
+            fx.BatteryKWh = 20;
             Tesla modelS = new Tesla();
+            modelS.BatteryKWh = 30;
 
             List<IElectric> electricVehicles = new List<IElectric>() {
                 fx, fxs, modelS
@@ -57,6 +60,16 @@ namespace GarysCustomGarage
             {
                 Console.WriteLine($"{gv.CurrentTankPercentage}");
             }
+
+            BatteryStation batteryStation = new BatteryStation();
+            batteryStation.Capacity = 6;
+
+            GasStation gasStation = new GasStation();
+            gasStation.Capacity = 4;
+
+            gasStation.Refuel(gasVehicles);
+
+            batteryStation.Refuel(electricVehicles);
         }
     }
 }

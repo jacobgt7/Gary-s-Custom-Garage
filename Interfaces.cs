@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace GarysCustomGarage
 {
     public interface IElectric
@@ -12,5 +15,11 @@ namespace GarysCustomGarage
         double FuelCapacity { get; }
         double CurrentTankPercentage { get; }
         void RefuelTank();
+    }
+
+    public interface IStation<T>
+    {
+        int Capacity { get; }
+        void Refuel(List<T> vehicles);
     }
 }
